@@ -40,10 +40,14 @@ public class SwerveWheel extends RunEachFrameTask {
   }
 
   public void setHeadAndVelocity(double targetHead, double targetVelocity) {
-    // if turning the other way and going backward is faster, add that logic here!!!
-    DriverStation.reportWarning("changed head", false);
-    this.targetHead = targetHead;
-    this.targetVelocity = targetVelocity;
+    double currentHead = this.encoder.pidGet();
+    this.targetHead = Math.min(Math.abs(currentHead - targetHead), Math.abs(currentHead - Math.abs(180 - targetHead)));
+    if (this.targetHead != targetHead) { 
+      this.targetVelocity = -targetVelocity;
+    }
+    else {
+      this.targetVelocity = targetVelocity;
+    }
   }
 
   @Override
@@ -57,8 +61,8 @@ public class SwerveWheel extends RunEachFrameTask {
     SmartDashboard.putNumber("encoder " + this.name, this.encoder.pidGet());
     SmartDashboard.putNumber("pid output " + this.name, headingOutput);
     SmartDashboard.putNumber("pid error " + this.name, this.headingPidController.getError());
-    SmartDashboard.putNumber("encoder graph " + this.name, this.encoder.pidGet());
+/*    SmartDashboard.putNumber("encoder graph " + this.name, this.encoder.pidGet());
     SmartDashboard.putNumber("pid output graph " + this.name, headingOutput);
-    SmartDashboard.putNumber("pid error graph " + this.name, this.headingPidController.getError());
+    SmartDashboard.putNumber("pid error graph " + this.name, this.headingPidController.getError());*/
   }
 }

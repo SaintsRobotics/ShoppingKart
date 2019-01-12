@@ -22,9 +22,10 @@ public class SwerveControl extends RunEachFrameTask{
   
   @Override
   public void runEachFrame() {
+    double speedMultiplier = 0.33;
     double xAxis = xboxInput.leftStickX();
     double yAxis = -xboxInput.leftStickY();
-    double targetVelocity = 0; // Math.sqrt(Math.pow(xAxis, 2) + Math.pow(yAxis, 2));
+    double targetVelocity = Math.sqrt(Math.pow(xAxis, 2) + Math.pow(yAxis, 2)) * speedMultiplier;
     if (targetVelocity > 1) targetVelocity = 1;
     double targetHead = this.findRobotHeading(xAxis, yAxis);
     
@@ -34,6 +35,7 @@ public class SwerveControl extends RunEachFrameTask{
     w4.setHeadAndVelocity(targetHead, targetVelocity);
     
     SmartDashboard.putNumber("targethead", targetHead);
+    SmartDashboard.putNumber("speedMultiplier", speedMultiplier);
     SmartDashboard.putNumber("targetVelocity", targetVelocity);
 }
   
