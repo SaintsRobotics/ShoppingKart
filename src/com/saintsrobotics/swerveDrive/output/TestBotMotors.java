@@ -44,6 +44,7 @@ public class TestBotMotors extends RobotMotors {
        (MotorRamping) this.rightBack,
        (MotorRamping) this.leftFront,
        (MotorRamping) this.rightFront,
+//       (MotorRamping) this.leftBackTurner,
    };
   }
 }

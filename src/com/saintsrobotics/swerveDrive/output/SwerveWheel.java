@@ -30,7 +30,7 @@ public class SwerveWheel extends RunEachFrameTask {
 
     this.headingPidReceiver = new PIDReceiver();
     this.headingPidController = new PIDController(pidConfig.forwardHeadingKP,
-        pidConfig.forwardHeadingKI, pidConfig.forwardHeadingKD, pidConfig.encoder, headingPidReceiver);
+        0.0, 0.0, pidConfig.encoder, headingPidReceiver);
     this.headingPidController.setAbsoluteTolerance(pidConfig.forwardHeadingTolerance);
     this.headingPidController.setOutputRange(-01, 01);
     this.headingPidController.setInputRange(0, 360);
@@ -41,6 +41,7 @@ public class SwerveWheel extends RunEachFrameTask {
 
   public void setHeadAndVelocity(double targetHead, double targetVelocity) {
     // if turning the other way and going backward is faster, add that logic here!!!
+    DriverStation.reportWarning("changed head", false);
     this.targetHead = targetHead;
     this.targetVelocity = targetVelocity;
   }
@@ -48,6 +49,7 @@ public class SwerveWheel extends RunEachFrameTask {
   @Override
   public void runEachFrame() {
     this.driveMotor.set(this.targetVelocity);
+//    this.headingPidController.enable();
     this.headingPidController.setSetpoint(this.targetHead);
     double headingOutput = this.headingPidReceiver.getOutput();
     this.turnMotor.set(headingOutput);

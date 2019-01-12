@@ -24,7 +24,7 @@ public class SwerveControl extends RunEachFrameTask{
   public void runEachFrame() {
     double xAxis = xboxInput.leftStickX();
     double yAxis = -xboxInput.leftStickY();
-    double targetVelocity = 0; //Math.sqrt(Math.pow(xAxis, 2) + Math.pow(yAxis, 2));
+    double targetVelocity = 0; // Math.sqrt(Math.pow(xAxis, 2) + Math.pow(yAxis, 2));
     if (targetVelocity > 1) targetVelocity = 1;
     double targetHead = this.findRobotHeading(xAxis, yAxis);
     
@@ -43,9 +43,10 @@ public class SwerveControl extends RunEachFrameTask{
     if (y == 0 && x > 0) return 90.00;
     double angle = 0;
     double theta = Math.abs(Math.toDegrees(Math.atan(x/y)));
-    if (x > 0 && y <= 0) {angle = 90; return angle+90-theta;}
+    //if u ever get to it, or u want to give programming members busy-work, try to clean up this code
+    if (x >= 0 && y < 0) {angle = 90; return angle+90-theta;}
     else if (x <= 0 && y < 0) angle = 180.0;
-    else if (x < 0 && y >= 0) { angle = 270;return angle+90-theta;}
+    else if (x < 0 && y > 0) { angle = 270; return angle+90-theta;}
     return angle + theta;
   }
 }

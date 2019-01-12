@@ -16,7 +16,7 @@ public class AbsoluteEncoder implements PIDSource {
   public AbsoluteEncoder(int channel, double offset, boolean isInverted) {
     analogIn = new AnalogInput(channel);
     this.offset = offset;
-    this.sourceType = PIDSourceType.kRate;
+    this.sourceType = PIDSourceType.kDisplacement;
     
     if (isInverted) {
       this.offset += 360;
