@@ -71,7 +71,7 @@ public class Robot extends TaskRobot {
     SwerveWheel rightBack = new SwerveWheel("rightBack", motors.rightBack, motors.rightBackTurner, Robot.instance.sensors.rightBackTurnConfig);
     SwerveWheel rightFront = new SwerveWheel("rightFront", motors.rightFront, motors.rightFrontTurner, Robot.instance.sensors.rightFrontTurnConfig);
     this.teleopTasks = new Task[] {
-        leftBack, //leftFront, rightBack, rightFront,
+        leftBack, leftFront, rightBack, rightFront,
         new SwerveControl(c, leftBack, leftFront, rightBack, rightFront),
 //        new TestTurnSwerveWheel(c, motors.leftBackTurner, this.sensors.leftBackEncoder),
 //        new TestDriveSwerveWheel(c, motors.leftBack)

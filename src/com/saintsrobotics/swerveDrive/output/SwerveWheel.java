@@ -53,9 +53,12 @@ public class SwerveWheel extends RunEachFrameTask {
     this.headingPidController.setSetpoint(this.targetHead);
     double headingOutput = this.headingPidReceiver.getOutput();
     this.turnMotor.set(headingOutput);
-    
+
     SmartDashboard.putNumber("encoder " + this.name, this.encoder.pidGet());
     SmartDashboard.putNumber("pid output " + this.name, headingOutput);
     SmartDashboard.putNumber("pid error " + this.name, this.headingPidController.getError());
+    SmartDashboard.putNumber("encoder graph " + this.name, this.encoder.pidGet());
+    SmartDashboard.putNumber("pid output graph " + this.name, headingOutput);
+    SmartDashboard.putNumber("pid error graph " + this.name, this.headingPidController.getError());
   }
 }
