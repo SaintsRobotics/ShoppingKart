@@ -10,8 +10,8 @@ public class TestBotMotors extends RobotMotors {
   @Override
   public void init() {
     this.leftBack = new MotorRamping(new Talon(3), true);
-    this.leftFront = new MotorRamping(new Talon(1), false);
-    this.rightBack = new MotorRamping(new Talon(5), true);
+    this.leftFront = new MotorRamping(new Talon(1), true);
+    this.rightBack = new MotorRamping(new Talon(5), false);
     this.rightFront = new MotorRamping(new Talon(7), false);
     
     this.leftDrive = new MotorGroup(this.leftBack, this.leftFront);

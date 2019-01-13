@@ -40,14 +40,12 @@ public class SwerveWheel extends RunEachFrameTask {
   }
 
   public void setHeadAndVelocity(double targetHead, double targetVelocity) {
-    double currentHead = this.encoder.pidGet();
-    this.targetHead = Math.min(Math.abs(currentHead - targetHead), Math.abs(currentHead - Math.abs(180 - targetHead)));
-    if (this.targetHead != targetHead) { 
-      this.targetVelocity = -targetVelocity;
-    }
-    else {
-      this.targetVelocity = targetVelocity;
-    }
+    this.targetVelocity = targetVelocity;
+    this.targetHead = targetHead;
+  }
+  
+  public double getTurningEncoder() {
+    return this.encoder.pidGet();
   }
 
   @Override
@@ -61,8 +59,5 @@ public class SwerveWheel extends RunEachFrameTask {
     SmartDashboard.putNumber("encoder " + this.name, this.encoder.pidGet());
     SmartDashboard.putNumber("pid output " + this.name, headingOutput);
     SmartDashboard.putNumber("pid error " + this.name, this.headingPidController.getError());
-/*    SmartDashboard.putNumber("encoder graph " + this.name, this.encoder.pidGet());
-    SmartDashboard.putNumber("pid output graph " + this.name, headingOutput);
-    SmartDashboard.putNumber("pid error graph " + this.name, this.headingPidController.getError());*/
   }
 }
