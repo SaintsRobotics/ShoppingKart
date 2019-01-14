@@ -41,7 +41,7 @@ public class SwerveWheel extends RunEachFrameTask {
 	public void setHeadAndVelocity(double targetHead, double targetVelocity) {
 		double diff = 0.0;
 		double currentHead = this.encoder.pidGet();
-		if (Math.abs(targetHead - currentHead > 180) {
+		if (Math.abs(targetHead - currentHead) > 180) {
 			diff = 360 - Math.abs(targetHead - currentHead);
 		} else {
 			diff = Math.abs(targetHead - currentHead);
