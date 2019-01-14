@@ -16,19 +16,22 @@ public class SwerveControl extends RunEachFrameTask {
   private int speedMultiplierPosition = 0;
 
   private double currentHead = 0;
-  private double diff = 0;
 
   // full dimensions of the robot (from wheel to wheel)
   private final double LENGTH = 25.5;
   private final double WIDTH = 24;
   private int currentZone = 0; //arbitrary value
-  // zone boundaries deciding when to add power to front or side wheels when turning
-// 2 _____ 1
-//  |\   /|
-//  | \1/4|
-//  |2/3\ |    inside are zones labeled
-//  |/___\|    outside are boundaries labeled
-//  3     4
+  
+//  zone boundaries deciding when to add power to front or side wheels when turning
+// 2_______1
+// |\     /|
+// | \ 1 / |
+// |  \ /  |   boundaries listed on the edges
+// | 2 \ 4 |   zones listed on the inside
+// |  / \  |
+// | / 3 \ |
+// |/_____\|
+// 3       4
   
   private final double BOUND_1 = Math.toDegrees(Math.atan(WIDTH / LENGTH));
   private final double BOUND_2 = 360 - Math.toDegrees(Math.atan(WIDTH / LENGTH));
@@ -110,19 +113,22 @@ public class SwerveControl extends RunEachFrameTask {
     
     this.currentHead = w2.getTurningEncoder();
 
+    //makes sure the wheels don't turn more than 90 degrees for one direction change
+    double diff = 0;
     if (Math.abs(targetHead - this.currentHead) > 180) {
-      this.diff = 360 - Math.abs(targetHead - this.currentHead);
+      diff = 360 - Math.abs(targetHead - this.currentHead);
     }
     else { 
-      this.diff = Math.abs(targetHead - this.currentHead);
+      diff = Math.abs(targetHead - this.currentHead);
     }
-    if (this.diff > 90) {
+    if (diff > 90) {
       targetVelocity1 = -targetVelocity1;
       targetVelocity2 = -targetVelocity2;
       targetVelocity3 = -targetVelocity3;
       targetVelocity4 = -targetVelocity4;
       targetHead = (180.0 + targetHead) % 360.0;
     }
+    
     w1.setHeadAndVelocity(targetHead, targetVelocity1);
     w2.setHeadAndVelocity(targetHead, targetVelocity2);
     w3.setHeadAndVelocity(targetHead, targetVelocity3);
