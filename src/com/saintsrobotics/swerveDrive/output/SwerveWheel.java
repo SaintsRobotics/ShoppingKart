@@ -40,8 +40,8 @@ public class SwerveWheel extends RunEachFrameTask {
   }
 
   public void setHeadAndVelocity(double targetHead, double targetVelocity) {
-    this.targetVelocity = targetVelocity;
     this.targetHead = targetHead;
+    this.targetVelocity = targetVelocity;
   }
   
   public double getTurningEncoder() {
@@ -51,7 +51,6 @@ public class SwerveWheel extends RunEachFrameTask {
   @Override
   public void runEachFrame() {
     this.driveMotor.set(this.targetVelocity);
-//    this.headingPidController.enable();
     this.headingPidController.setSetpoint(this.targetHead);
     double headingOutput = this.headingPidReceiver.getOutput();
     this.turnMotor.set(headingOutput);

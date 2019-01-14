@@ -19,7 +19,7 @@ public class AbsoluteEncoder implements PIDSource {
     this.sourceType = PIDSourceType.kDisplacement;
     
     if (isInverted) {
-      this.offset += 360;
+//      this.offset += 360;
       this.voltageToDegrees = -72;
     } else {
       this.voltageToDegrees = 72;
@@ -27,7 +27,7 @@ public class AbsoluteEncoder implements PIDSource {
   }
   
   public double getRotation() { //in degrees
-    return (this.analogIn.getVoltage()*this.voltageToDegrees + offset) % 360;
+    return (this.analogIn.getVoltage()*this.voltageToDegrees + 360 + offset) % 360;
     
   }
 
