@@ -30,7 +30,11 @@ public class Robot extends TaskRobot {
   public Sensors sensors;
   public OI oi;
   public Flags flags;
-
+  private double[] rightFrontLoc = {12, 12.75};
+  private double[] leftFrontLoc = {-12, 12.75};
+  private double[] leftBackLoc = {-12, -12.75};
+  private double[] rightBackLoc = {12, -12.5};
+  private double[] pivotLoc = {0, 0};
 
   public static Robot instance;
 
@@ -47,14 +51,9 @@ public class Robot extends TaskRobot {
     //for(int i = 1; i < 9; i++) this.temp[i-1] = new Talon(i);
     this.flags = new Flags();
 
-    
-
     this.flags.pdp = new PowerDistributionPanel();
     
     }
-
-    
-    
 
   @Override
   public void autonomousInit() {
@@ -66,18 +65,18 @@ public class Robot extends TaskRobot {
     //tube1.setDirection(Relay.Direction.kReverse);
     XboxInput c = Robot.instance.oi.xboxInput;
     RobotMotors motors = Robot.instance.motors;
-    SwerveWheel leftBack = new SwerveWheel("leftBack", motors.leftBack, motors.leftBackTurner, Robot.instance.sensors.leftBackTurnConfig);
-    SwerveWheel leftFront = new SwerveWheel("leftFront", motors.leftFront, motors.leftFrontTurner, Robot.instance.sensors.leftFrontTurnConfig);
-    SwerveWheel rightBack = new SwerveWheel("rightBack", motors.rightBack, motors.rightBackTurner, Robot.instance.sensors.rightBackTurnConfig);
-    SwerveWheel rightFront = new SwerveWheel("rightFront", motors.rightFront, motors.rightFrontTurner, Robot.instance.sensors.rightFrontTurnConfig);
+    SwerveWheel rightFront = new SwerveWheel("rightFront", motors.rightFront, motors.rightFrontTurner, Robot.instance.sensors.rightFrontTurnConfig, this.rightFrontLoc, this.pivotLoc);
+    SwerveWheel leftFront = new SwerveWheel("leftFront", motors.leftFront, motors.leftFrontTurner, Robot.instance.sensors.leftFrontTurnConfig, this.leftFrontLoc, this.pivotLoc);
+    SwerveWheel leftBack = new SwerveWheel("leftBack", motors.leftBack, motors.leftBackTurner, Robot.instance.sensors.leftBackTurnConfig, this.leftBackLoc, this.pivotLoc);
+    SwerveWheel rightBack = new SwerveWheel("rightBack", motors.rightBack, motors.rightBackTurner, Robot.instance.sensors.rightBackTurnConfig, this.rightBackLoc, this.pivotLoc);
+    
     this.teleopTasks = new Task[] {
         leftBack, leftFront, rightBack, rightFront,
-        new SwerveControl(c, leftBack, leftFront, rightBack, rightFront),
+        new SwerveControl(c, rightFront, leftFront, leftBack, rightBack),
 //        new TestTurnSwerveWheel(c, motors.leftBackTurner, this.sensors.leftBackEncoder),
 //        new TestDriveSwerveWheel(c, motors.leftBack)
          new UpdateMotors(this.motors)
     };
-    
     
     super.teleopInit();
   }
