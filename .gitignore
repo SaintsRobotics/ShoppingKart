@@ -1,1 +1,7 @@
+/.settings/
 /bin/
+/build/
+/dist/
+*.classpath
+*.project
+build.*
