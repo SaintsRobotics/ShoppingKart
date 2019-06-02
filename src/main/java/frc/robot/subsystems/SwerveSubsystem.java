@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.util.AngleUtilities;
+import frc.robot.util.PidConfig;
 
 public class SwerveSubsystem extends Subsystem {
 	private static final double SPEED_COEF = 1;
@@ -21,8 +23,7 @@ public class SwerveSubsystem extends Subsystem {
 	private double translationY;
 	private double rotationX;
 
-	public SwerveSubsystem(SwerveWheel[] wheels, ADXRS450_Gyro gyro, double kP, double kI, double kD,
-            double tolerance) {
+	public SwerveSubsystem(SwerveWheel[] wheels, ADXRS450_Gyro gyro, PidConfig pidConfig) {
 		this.wheels = wheels;
 
 		for (SwerveWheel s : wheels) {
@@ -32,9 +33,9 @@ public class SwerveSubsystem extends Subsystem {
 		}
 
 		this.gyro = gyro;
-		this.headingPidController = new PIDController(kP,kI,kD,
+		this.headingPidController = new PIDController(pidConfig.kP,pidConfig.kI,pidConfig.kD,
 				this.gyro, (output) -> this.headingPidOutput = output);
-		this.headingPidController.setAbsoluteTolerance(tolerance);
+		this.headingPidController.setAbsoluteTolerance(pidConfig.tolerance);
 		this.headingPidController.setOutputRange(-0.4, 0.4);
 		this.headingPidController.setInputRange(0, 360);
 		this.headingPidController.setContinuous();

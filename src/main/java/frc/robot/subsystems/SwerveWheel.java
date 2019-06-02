@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SpeedController;
+import frc.robot.util.PidConfig;
 
 public class SwerveWheel {
 	private SpeedController driveMotor;
@@ -17,7 +18,7 @@ public class SwerveWheel {
 	private PIDController headingPidController;
 	private PIDSource encoder;
 
-	public SwerveWheel(SpeedController driveMotor, SpeedController turnMotor, PIDSource encoder,double kP, double kI, double kD, double tolerance, double[] wheelLoc,
+	public SwerveWheel(SpeedController driveMotor, SpeedController turnMotor, PidConfig pidConfig, double[] wheelLoc,
 			double[] pivotLoc) {
 		this.driveMotor = driveMotor;
 		this.encoder = encoder;
@@ -34,9 +35,9 @@ public class SwerveWheel {
 				+ Math.pow((this.wheelLoc[1] - this.pivotLoc[1]), 2));
 
 		// this.headingPidReceiver = new PIDReceiver();
-		this.headingPidController = new PIDController(kP, kI, kD, encoder,
+		this.headingPidController = new PIDController(pidConfig.kP, pidConfig.kI, pidConfig.kD, encoder,
 				(output) -> turnMotor.set(output));
-		this.headingPidController.setAbsoluteTolerance(tolerance);
+		this.headingPidController.setAbsoluteTolerance(pidConfig.tolerance);
 		this.headingPidController.setOutputRange(-01, 01);
 		this.headingPidController.setInputRange(0, 360);
 		this.headingPidController.setContinuous();
