@@ -1,52 +1,48 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SpeedController;
+import frc.robot.util.PidConfig;
 
 public class SwerveWheel {
-	private SpeedController driveMotor;
-	// x and y coordinates of wheel and location of pivot point on robot
-	private double[] wheelLoc = new double[2];
-	private double[] pivotLoc = new double[2];
-	private double[] rotationVector;
-	// distance of wheel from pivot
-	private double radius;
 
-	// private PIDReceiver headingPidReceiver;
-	private PIDController headingPidController;
-	private PIDSource encoder;
+	private SpeedController m_driveMotor;
+	private PIDSource m_encoder;
+	private PIDController m_pidController;
 
-	public SwerveWheel(SpeedController driveMotor, SpeedController turnMotor, PIDSource encoder,double kP, double kI, double kD, double tolerance, double[] wheelLoc,
-			double[] pivotLoc) {
-		this.driveMotor = driveMotor;
-		this.encoder = encoder;
+	private static int[] PIVOT_LOC;
 
-		//Location of wheel relative to the center of the robot
-		this.wheelLoc = wheelLoc;
-		//Location of wheel relative to the origin
-		this.pivotLoc = pivotLoc;
+	private double[] m_wheelLoc;
+	private double[] m_rotationVector;
+	private double m_radius;
+
+	public SwerveWheel(SpeedController driveMotor, PIDOutput turnMotor, PIDSource encoder, PidConfig pidConfig, double[] wheelLoc) {
+		if (PIVOT_LOC == null) {
+			throw new NullPointerException("Set the pivot point of your robot by calling SwerveWheel.setPivotLoc(int[]) before you construct a SwerveWheel.");
+		}
+
+		this.m_driveMotor = driveMotor;
+		this.m_encoder = encoder;
+		this.m_wheelLoc = wheelLoc;
 		
+		this.m_pidController = new PIDController(pidConfig.kP, pidConfig.kI, pidConfig.kD, this.m_encoder,
+				(output) -> turnMotor.writePid(output));
+		this.m_pidController.setAbsoluteTolerance(pidConfig.tolerance);
+		this.m_pidController.setOutputRange(-01, 01);
+		this.m_pidController.setInputRange(0, 360);
+		this.m_pidController.setContinuous();
+		this.m_pidController.reset();
+		this.m_pidController.enable();
 
-		this.rotationVector = new double[] { this.wheelLoc[1] - this.pivotLoc[1], this.pivotLoc[0] - this.wheelLoc[0] };
-
-		this.radius = Math.sqrt(Math.pow((this.wheelLoc[0] - this.pivotLoc[0]), 2)
-				+ Math.pow((this.wheelLoc[1] - this.pivotLoc[1]), 2));
-
-		// this.headingPidReceiver = new PIDReceiver();
-		this.headingPidController = new PIDController(kP, kI, kD, encoder,
-				(output) -> turnMotor.set(output));
-		this.headingPidController.setAbsoluteTolerance(tolerance);
-		this.headingPidController.setOutputRange(-01, 01);
-		this.headingPidController.setInputRange(0, 360);
-		this.headingPidController.setContinuous();
-		this.headingPidController.reset();
-		this.headingPidController.enable();
+		this.m_rotationVector = new double[] { wheelLoc[1] - PIVOT_LOC[1], PIVOT_LOC[0] - wheelLoc[0] };
+		this.m_radius = Math.sqrt(Math.pow((wheelLoc[0] - PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - PIVOT_LOC[1]), 2));
 	}
 
 	public void setHeadAndVelocity(double targetHead, double targetVelocity) {
 		double diff = 0.0;
-		double currentHead = this.encoder.pidGet();
+		double currentHead = this.m_encoder.pidGet();
 		if (Math.abs(targetHead - currentHead) > 180) {
 			diff = 360 - Math.abs(targetHead - currentHead);
 		} else {
@@ -58,38 +54,45 @@ public class SwerveWheel {
 			targetVelocity = -targetVelocity;
 		}
 
-		// this was in RunEachFrame
 		this.setVelocity(targetVelocity);
-		this.headingPidController.setSetpoint(targetHead);
+		this.m_pidController.setSetpoint(targetHead);
 	}
 
 	/**
-	 * sets drive motor
 	 * 
-	 * @param velocity the velocity to that the motor gets set
+	 * @param velocity double between -1 and 1.  0 being stopped
 	 */
 	public void setVelocity(double velocity) {
-		this.driveMotor.set(velocity);
+		this.m_driveMotor.set(velocity);
 	}
 
 	/**
-	 * Gets distance of the swerve wheel from the pivot point
 	 * 
 	 * @return The distance of the wheel to the pivot point
 	 */
 	public double getRadius() {
-		return this.radius;
+		return this.m_radius;
 	}
 
 	/**
-	 * vector returned is used for calculating head and velocity (cartesian form)
-	 * for each wheel the direction of the vector is fully calculated, and so is
-	 * part of its magnitude the rest of the calculation is done in SwerveControl
-	 * because we need to know the SwerveWheel's siblings' states
+	 * this value is unique to every wheel.  It is based on the pivot point and wheel location.
 	 * 
-	 * @return a partially-calculated rotation vector, unique to each wheel
+	 * @return the directon (in the form of a slope) that the wheel will face when it is turning without any translational input
 	 */
 	public double[] getRotationVector() {
-		return this.rotationVector;
+		return this.m_rotationVector;
+	}
+
+	/**
+	 * 
+	 * @param newLoc new pivot location
+	 * @param wheels array of all SwerveWheels to update each of their rotationVectors.  (because this is a static method)
+	 */
+	public static void setPivotLoc(int[] newLoc, SwerveWheel[] wheels) {
+		PIVOT_LOC = newLoc;
+
+		for (SwerveWheel wheel : wheels) {
+			wheel.m_rotationVector = new double[] { wheel.m_wheelLoc[1] - PIVOT_LOC[1], PIVOT_LOC[0] - wheel.m_wheelLoc[0] };
+		}
 	}
 }
