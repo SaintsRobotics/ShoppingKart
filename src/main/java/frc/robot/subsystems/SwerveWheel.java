@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.util.PidConfig;
 
 public class SwerveWheel {
+	private static double[] PIVOT_LOC;
 
 	private SpeedController m_driveMotor;
 	private PIDSource m_encoder;
 	private PIDController m_pidController;
 
 	private double[] m_wheelLoc;
-	private double[] m_rotationVector;
 	private double m_radius;
 
 	/**
@@ -26,6 +26,10 @@ public class SwerveWheel {
 	 */
 	public SwerveWheel(SpeedController driveMotor, PIDOutput turnMotor, PIDSource encoder, PidConfig pidConfig,
 			double[] wheelLoc) {
+
+		if (PIVOT_LOC == null) {
+			throw new NullPointerException("SwerveWheel.PIVOT_LOC must be initalized by calling SwerveWheel.initializePivotLoc(double[] pivotLoc).");
+		}
 
 		this.m_driveMotor = driveMotor;
 		this.m_encoder = encoder;
@@ -40,9 +44,8 @@ public class SwerveWheel {
 		this.m_pidController.reset();
 		this.m_pidController.enable();
 
-		this.m_rotationVector = new double[] { wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1], SwerveSubsystem.PIVOT_LOC[0] - wheelLoc[0] };
 		this.m_radius = Math
-				.sqrt(Math.pow((wheelLoc[0] - SwerveSubsystem.PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1]), 2));
+				.sqrt(Math.pow((wheelLoc[0] - PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - PIVOT_LOC[1]), 2));
 	}
 
 	/**
@@ -96,15 +99,15 @@ public class SwerveWheel {
 	 * It's also known as the direction that the wheel will face when the robot is turning in place.
 	 */
 	public double[] getRotationVector() {
-		return this.m_rotationVector;
+		return new double[] { m_wheelLoc[1] - PIVOT_LOC[1], PIVOT_LOC[0] - m_wheelLoc[0] };
 	}
 	
 	/**
-	 * Called by SwerveSubsystem when the pivot location is changed, but not intialized.
+	 * Important: Call once before any SwerveWheels are constructed. 
+	 * @param pivotLoc The point about which the robot rotates, reletave to the origin, the center of the robot.
 	 */
-	public void resetRotationVector() {
-		this.m_rotationVector[0] = this.m_wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1];
-		this.m_rotationVector[1] = SwerveSubsystem.PIVOT_LOC[0] - this.m_wheelLoc[0];
+	public static void initializePivotLoc(double[] pivotLoc) {
+		PIVOT_LOC = pivotLoc;
 	}
 
 }
