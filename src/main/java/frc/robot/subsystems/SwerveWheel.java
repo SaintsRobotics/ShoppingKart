@@ -107,4 +107,12 @@ public class SwerveWheel {
 		this.m_rotationVector[1] = SwerveSubsystem.PIVOT_LOC[0] - this.m_wheelLoc[0];
 	}
 
+	public double getDriveSpeed() {
+		return this.m_driveMotor.get();
+	}
+
+	public double getTurnSpeed() {
+		return this.m_pidController.get();
+	}
+
 }
