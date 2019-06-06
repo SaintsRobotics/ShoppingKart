@@ -110,4 +110,12 @@ public class SwerveWheel {
 		PIVOT_LOC = pivotLoc;
 	}
 
+	public double getDriveSpeed() {
+		return this.m_driveMotor.get();
+	}
+
+	public double getTurnSpeed() {
+		return this.m_pidController.get();
+	}
+
 }
