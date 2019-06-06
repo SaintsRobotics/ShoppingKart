@@ -9,7 +9,7 @@ import frc.robot.util.PidConfig;
 
 public class SwerveSubsystem extends Subsystem {
 	private static final double SPEED_COEF = 1;
-	private static double[] PIVOT_LOC;
+	public static double[] PIVOT_LOC;
 
 	private SwerveWheel[] wheels;
 	private boolean isTurning;
@@ -133,7 +133,7 @@ public class SwerveSubsystem extends Subsystem {
 	}
 	
 	
-	public static void setPivotLoc(int[] newLoc) {
+	public void setPivotLoc(double[] newLoc) {
 		PIVOT_LOC = newLoc;
 		
 		for (SwerveWheel wheel : this.wheels) {

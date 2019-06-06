@@ -42,7 +42,7 @@ public class SwerveWheel {
 
 		this.m_rotationVector = new double[] { wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1], SwerveSubsystem.PIVOT_LOC[0] - wheelLoc[0] };
 		this.m_radius = Math
-				.sqrt(Math.pow((wheelLoc[0] - PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - PIVOT_LOC[1]), 2));
+				.sqrt(Math.pow((wheelLoc[0] - SwerveSubsystem.PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1]), 2));
 	}
 
 	/**
@@ -103,7 +103,8 @@ public class SwerveWheel {
 	 * Called by SwerveSubsystem when the pivot location is changed, but not intialized.
 	 */
 	public void resetRotationVector() {
-		this.m_rotationVector = { wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1], SwerveSubsystem.PIVOT_LOC[0] - wheelLoc[0] };
+		this.m_rotationVector[0] = this.m_wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1];
+		this.m_rotationVector[1] = SwerveSubsystem.PIVOT_LOC[0] - this.m_wheelLoc[0];
 	}
 
 }
