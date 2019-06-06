@@ -12,8 +12,6 @@ public class SwerveWheel {
 	private PIDSource m_encoder;
 	private PIDController m_pidController;
 
-	private static int[] PIVOT_LOC;
-
 	private double[] m_wheelLoc;
 	private double[] m_rotationVector;
 	private double m_radius;
@@ -28,10 +26,6 @@ public class SwerveWheel {
 	 */
 	public SwerveWheel(SpeedController driveMotor, PIDOutput turnMotor, PIDSource encoder, PidConfig pidConfig,
 			double[] wheelLoc) {
-		if (PIVOT_LOC == null) {
-			throw new NullPointerException(
-					"Set the pivot point of your robot by calling SwerveWheel.setPivotLoc(int[]) before you construct a SwerveWheel.");
-		}
 
 		this.m_driveMotor = driveMotor;
 		this.m_encoder = encoder;
@@ -46,7 +40,7 @@ public class SwerveWheel {
 		this.m_pidController.reset();
 		this.m_pidController.enable();
 
-		this.m_rotationVector = new double[] { wheelLoc[1] - PIVOT_LOC[1], PIVOT_LOC[0] - wheelLoc[0] };
+		this.m_rotationVector = new double[] { wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1], SwerveSubsystem.PIVOT_LOC[0] - wheelLoc[0] };
 		this.m_radius = Math
 				.sqrt(Math.pow((wheelLoc[0] - PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - PIVOT_LOC[1]), 2));
 	}
@@ -58,7 +52,7 @@ public class SwerveWheel {
 	 * @param targetVelocity	The velocity at which the wheel is to be turning.  Input is in the element of [-1, 1].
 	 */
 	public void setHeadAndVelocity(double targetHead, double targetVelocity) {
-		/**
+		/*
 		 * smart inversion logic: if turning to the angle 180 degrees away from the set
 		 * angle is a shorter turn, go to that angle instead and invert the drive motor
 		 * speed
@@ -104,27 +98,12 @@ public class SwerveWheel {
 	public double[] getRotationVector() {
 		return this.m_rotationVector;
 	}
-
+	
 	/**
-	 * IMPORTANT: This method must be called before any SwerveWheels are constructed.
-	 * @param loc The point about which the robot pivots <i>relative to the origin</i>, the center of the robot.  It doesn't have to be the center of the robot.
+	 * Called by SwerveSubsystem when the pivot location is changed, but not intialized.
 	 */
-	public static void setPivotLoc(int[] loc) {
-		PIVOT_LOC = loc;
+	public void resetRotationVector() {
+		this.m_rotationVector = { wheelLoc[1] - SwerveSubsystem.PIVOT_LOC[1], SwerveSubsystem.PIVOT_LOC[0] - wheelLoc[0] };
 	}
 
-	/**
-	 * This method is called when <b><i>a pivot point location has already been set</i></b> using {@link #setPivotLoc(int[] loc) setPivotLoc(int[] loc)}
-	 * @param newLoc New pivot location
-	 * @param wheels Array of all SwerveWheels to update each of their
-	 *               rotationVectors. (Because this is a static method, it can't access all of it's instances on its own.)
-	 */
-	public static void setNewPivotLoc(int[] newLoc, SwerveWheel[] wheels) {
-		PIVOT_LOC = newLoc;
-
-		for (SwerveWheel wheel : wheels) {
-			wheel.m_rotationVector = new double[] { wheel.m_wheelLoc[1] - PIVOT_LOC[1],
-					PIVOT_LOC[0] - wheel.m_wheelLoc[0] };
-		}
-	}
 }

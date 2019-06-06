@@ -9,6 +9,7 @@ import frc.robot.util.PidConfig;
 
 public class SwerveSubsystem extends Subsystem {
 	private static final double SPEED_COEF = 1;
+	private static double[] PIVOT_LOC;
 
 	private SwerveWheel[] wheels;
 	private boolean isTurning;
@@ -23,8 +24,9 @@ public class SwerveSubsystem extends Subsystem {
 	private double translationY;
 	private double rotationX;
 
-	public SwerveSubsystem(SwerveWheel[] wheels, ADXRS450_Gyro gyro, PidConfig pidConfig) {
+	public SwerveSubsystem(SwerveWheel[] wheels, double[] pivotLoc, ADXRS450_Gyro gyro, PidConfig pidConfig) {
 		this.wheels = wheels;
+		PIVOT_LOC = pivotLoc;
 
 		for (SwerveWheel s : wheels) {
 			if (s.getRadius() > this.maxRad) {
@@ -129,6 +131,13 @@ public class SwerveSubsystem extends Subsystem {
 			}
 		}
 	}
-
-    
+	
+	
+	public static void setPivotLoc(int[] newLoc) {
+		PIVOT_LOC = newLoc;
+		
+		for (SwerveWheel wheel : this.wheels) {
+			wheel.resetRotationVector();
+		}
+	}    
 }
