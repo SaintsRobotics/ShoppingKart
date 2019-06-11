@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.util.AngleUtilities;
 import frc.robot.util.PidConfig;
 
@@ -49,13 +50,11 @@ public class SwerveSubsystem extends Subsystem {
 		this.m_pidController.setOutputRange(-0.4, 0.4);
 		this.m_pidController.setInputRange(0, 360);
 		this.m_pidController.setContinuous();
-		this.m_pidController.reset();
-		this.m_pidController.enable();
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand();
+		setDefaultCommand(new SwerveDriveCommand());
 	}
 
 	/**
@@ -86,6 +85,14 @@ public class SwerveSubsystem extends Subsystem {
 	 */
 	public void setRobotTargetHead(double n) {
 		this.m_pidController.setSetpoint(n);
+	}
+
+	public PIDSource getGyro() {
+		return this.m_gyro;
+	}
+
+	public PIDController getPidController() {
+		return this.m_pidController;
 	}
 
 	/**

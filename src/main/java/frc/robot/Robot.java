@@ -30,13 +30,14 @@ import frc.robot.util.AbsoluteEncoder;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  private static Robot instance;
+
   public static OI m_oi;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  private SwerveSubsystem swerveSubsystem;
+  public SwerveSubsystem swerveSubsystem;
 
   private SwerveWheel leftFront;
   private SwerveWheel rightFront;
@@ -45,6 +46,15 @@ public class Robot extends TimedRobot {
 
   private SwerveWheel[] wheels = {rightFront,leftFront,leftBack,rightBack};
 
+
+  public static synchronized Robot getInstance() {
+    if (instance == null) {
+      instance = new Robot();
+    }
+    return instance;
+  }
+
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -52,9 +62,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
 
     this.leftFront = new SwerveWheel(new Talon(RobotMap.leftFrontDrive), new Talon(RobotMap.leftFrontTurn),
         new AbsoluteEncoder(RobotMap.leftFrontEncoder, 0, false), RobotMap.drivePidConfig, RobotMap.leftFrontLoc);
@@ -111,19 +118,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    // m_autonomousCommand = m_chooser.getSelected();
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     * switch(autoSelected) { case "My Auto": autonomousCommand = new
-     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-     * ExampleCommand(); break; }
-     */
+    // /*
+    //  * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+    //  * switch(autoSelected) { case "My Auto": autonomousCommand = new
+    //  * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
+    //  * ExampleCommand(); break; }
+    //  */
 
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
+    // // schedule the autonomous command (example)
+    // if (m_autonomousCommand != null) {
+    //   m_autonomousCommand.start();
+    // }
   }
 
   /**
