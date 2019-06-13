@@ -21,8 +21,7 @@ public class OI {
   // number it is.
   // Joystick stick = new Joystick(port);
   // Button button = new JoystickButton(stick, buttonNumber);
-  XboxController xbox = new XboxController(0);
-  XboxController xboxController = new XboxController(1);
+  public static XboxController xbox = new XboxController(0);
 
   
   

@@ -8,16 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.SwerveWheel;
 import frc.robot.util.AbsoluteEncoder;
@@ -32,7 +27,7 @@ import frc.robot.util.AbsoluteEncoder;
 public class Robot extends TimedRobot {
   private static Robot instance;
 
-  public static OI m_oi;
+  public static OI m_oi = new OI();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();

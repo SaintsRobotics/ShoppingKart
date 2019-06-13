@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.util.AngleUtilities;
 import frc.robot.util.PidConfig;
@@ -54,7 +56,7 @@ public class SwerveSubsystem extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new SwerveDriveCommand());
+		setDefaultCommand(new SwerveDriveCommand(() -> Robot.m_oi.xbox.getAButton(), () -> Robot.m_oi.xbox.getX(Hand.kLeft), () -> Robot.m_oi.xbox.getY(Hand.kLeft), () -> Robot.m_oi.xbox.getX(Hand.kRight)));
 	}
 
 	/**

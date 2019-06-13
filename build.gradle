@@ -1,6 +1,7 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2019.1.1"
+    id "maven-publish"
 }
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
@@ -61,3 +62,17 @@ jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.saintsrobotics'
+            artifactId = 'shoppingkart'
+            version = '0.1'
+
+            from components.java
+            }
+        }
+    }
+
+
