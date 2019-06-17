@@ -1,4 +1,5 @@
 # ShoppingKart
+[![Build Status](https://travis-ci.com/delaynieym/ShoppingKart.svg?branch=master)](https://travis-ci.com/delaynieym/ShoppingKart)
 
 **Presented by the Boering Company**
 
