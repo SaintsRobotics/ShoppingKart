@@ -17,29 +17,223 @@ public class testAngleUtilities {
 
     @Test
     public void testFindAngle() {
-        assertEquals(270.0, AngleUtilities.findAngle(-1, 0), 0.1);
-        assertEquals(90.0, AngleUtilities.findAngle(1, 0), 0.1);
-        assertEquals(45.0, AngleUtilities.findAngle(1, 1), 0.1);
-        assertEquals(48.01, AngleUtilities.findAngle(1, 0.9), 0.1);
-        assertEquals(51.3, AngleUtilities.findAngle(1, 0.8), 0.1);
-        assertEquals(55, AngleUtilities.findAngle(1, 0.7), 0.1);
-        assertEquals(59.03, AngleUtilities.findAngle(1, 0.6), 0.1);
-        assertEquals(63.43, AngleUtilities.findAngle(1, 0.5), 0.1);
-        assertEquals(68.19, AngleUtilities.findAngle(1, 0.4), 0.1);
-        assertEquals(73.3, AngleUtilities.findAngle(1, 0.3), 0.1);
-        assertEquals(78.69, AngleUtilities.findAngle(1, 0.2), 0.1);
-        assertEquals(84.28, AngleUtilities.findAngle(1, 0.1), 0.1);
-        assertEquals(95.71, AngleUtilities.findAngle(1, -0.1), 0.1);
-        assertEquals(101.3, AngleUtilities.findAngle(1, -0.2), 0.1);
-        assertEquals(106.69, AngleUtilities.findAngle(1, -0.3), 0.1);
-        assertEquals(111.8, AngleUtilities.findAngle(1, -0.4), 0.1);
-        assertEquals(116.56, AngleUtilities.findAngle(1, -0.5), 0.1);
-        assertEquals(120.96, AngleUtilities.findAngle(1, -0.6), 0.1);
-        assertEquals(124.99, AngleUtilities.findAngle(1, -0.7), 0.1);
-        assertEquals(128.65, AngleUtilities.findAngle(1, -0.8), 0.1);
-        assertEquals(131.98, AngleUtilities.findAngle(1, -0.9), 0.1);
-        assertEquals(135.0, AngleUtilities.findAngle(1, -1), 0.1);
-
+        assertEquals("(-1.0,-1.0) should be angle", 225.0, AngleUtilities.findAngle(-1.0, -1.0), 0.1);
+        assertEquals("(-1.0,-0.8) should be angle", 231.34019174590992, AngleUtilities.findAngle(-1.0, -0.8), 0.1);
+        assertEquals("(-1.0,-0.6000000000000001) should be angle", 239.03624346792648,
+                AngleUtilities.findAngle(-1.0, -0.6000000000000001), 0.1);
+        assertEquals("(-1.0,-0.4000000000000001) should be angle", 248.19859051364818,
+                AngleUtilities.findAngle(-1.0, -0.4000000000000001), 0.1);
+        assertEquals("(-1.0,-0.20000000000000007) should be angle", 258.69006752597977,
+                AngleUtilities.findAngle(-1.0, -0.20000000000000007), 0.1);
+        assertEquals("(-1.0,-5.551115123125783E-17) should be angle", 270.0,
+                AngleUtilities.findAngle(-1.0, -5.551115123125783E-17), 0.1);
+        assertEquals("(-1.0,0.19999999999999996) should be angle", 281.30993247402023,
+                AngleUtilities.findAngle(-1.0, 0.19999999999999996), 0.1);
+        assertEquals("(-1.0,0.39999999999999997) should be angle", 291.8014094863518,
+                AngleUtilities.findAngle(-1.0, 0.39999999999999997), 0.1);
+        assertEquals("(-1.0,0.6) should be angle", 300.9637565320735, AngleUtilities.findAngle(-1.0, 0.6), 0.1);
+        assertEquals("(-1.0,0.8) should be angle", 308.6598082540901, AngleUtilities.findAngle(-1.0, 0.8), 0.1);
+        assertEquals("(-1.0,1.0) should be angle", 315.0, AngleUtilities.findAngle(-1.0, 1.0), 0.1);
+        assertEquals("(-0.8,-1.0) should be angle", 218.65980825409008, AngleUtilities.findAngle(-0.8, -1.0), 0.1);
+        assertEquals("(-0.8,-0.8) should be angle", 225.0, AngleUtilities.findAngle(-0.8, -0.8), 0.1);
+        assertEquals("(-0.8,-0.6000000000000001) should be angle", 233.13010235415598,
+                AngleUtilities.findAngle(-0.8, -0.6000000000000001), 0.1);
+        assertEquals("(-0.8,-0.4000000000000001) should be angle", 243.43494882292202,
+                AngleUtilities.findAngle(-0.8, -0.4000000000000001), 0.1);
+        assertEquals("(-0.8,-0.20000000000000007) should be angle", 255.96375653207352,
+                AngleUtilities.findAngle(-0.8, -0.20000000000000007), 0.1);
+        assertEquals("(-0.8,-5.551115123125783E-17) should be angle", 270.0,
+                AngleUtilities.findAngle(-0.8, -5.551115123125783E-17), 0.1);
+        assertEquals("(-0.8,0.19999999999999996) should be angle", 284.03624346792645,
+                AngleUtilities.findAngle(-0.8, 0.19999999999999996), 0.1);
+        assertEquals("(-0.8,0.39999999999999997) should be angle", 296.565051177078,
+                AngleUtilities.findAngle(-0.8, 0.39999999999999997), 0.1);
+        assertEquals("(-0.8,0.6) should be angle", 306.869897645844, AngleUtilities.findAngle(-0.8, 0.6), 0.1);
+        assertEquals("(-0.8,0.8) should be angle", 315.0, AngleUtilities.findAngle(-0.8, 0.8), 0.1);
+        assertEquals("(-0.8,1.0) should be angle", 321.3401917459099, AngleUtilities.findAngle(-0.8, 1.0), 0.1);
+        assertEquals("(-0.6000000000000001,-1.0) should be angle", 210.96375653207352,
+                AngleUtilities.findAngle(-0.6000000000000001, -1.0), 0.1);
+        assertEquals("(-0.6000000000000001,-0.8) should be angle", 216.86989764584402,
+                AngleUtilities.findAngle(-0.6000000000000001, -0.8), 0.1);
+        assertEquals("(-0.6000000000000001,-0.6000000000000001) should be angle", 225.0,
+                AngleUtilities.findAngle(-0.6000000000000001, -0.6000000000000001), 0.1);
+        assertEquals("(-0.6000000000000001,-0.4000000000000001) should be angle", 236.30993247402023,
+                AngleUtilities.findAngle(-0.6000000000000001, -0.4000000000000001), 0.1);
+        assertEquals("(-0.6000000000000001,-0.20000000000000007) should be angle", 251.56505117707798,
+                AngleUtilities.findAngle(-0.6000000000000001, -0.20000000000000007), 0.1);
+        assertEquals("(-0.6000000000000001,-5.551115123125783E-17) should be angle", 270.0,
+                AngleUtilities.findAngle(-0.6000000000000001, -5.551115123125783E-17), 0.1);
+        assertEquals("(-0.6000000000000001,0.19999999999999996) should be angle", 288.434948822922,
+                AngleUtilities.findAngle(-0.6000000000000001, 0.19999999999999996), 0.1);
+        assertEquals("(-0.6000000000000001,0.39999999999999997) should be angle", 303.69006752597977,
+                AngleUtilities.findAngle(-0.6000000000000001, 0.39999999999999997), 0.1);
+        assertEquals("(-0.6000000000000001,0.6) should be angle", 315.0,
+                AngleUtilities.findAngle(-0.6000000000000001, 0.6), 0.1);
+        assertEquals("(-0.6000000000000001,0.8) should be angle", 323.13010235415595,
+                AngleUtilities.findAngle(-0.6000000000000001, 0.8), 0.1);
+        assertEquals("(-0.6000000000000001,1.0) should be angle", 329.03624346792645,
+                AngleUtilities.findAngle(-0.6000000000000001, 1.0), 0.1);
+        assertEquals("(-0.4000000000000001,-1.0) should be angle", 201.80140948635182,
+                AngleUtilities.findAngle(-0.4000000000000001, -1.0), 0.1);
+        assertEquals("(-0.4000000000000001,-0.8) should be angle", 206.565051177078,
+                AngleUtilities.findAngle(-0.4000000000000001, -0.8), 0.1);
+        assertEquals("(-0.4000000000000001,-0.6000000000000001) should be angle", 213.6900675259798,
+                AngleUtilities.findAngle(-0.4000000000000001, -0.6000000000000001), 0.1);
+        assertEquals("(-0.4000000000000001,-0.4000000000000001) should be angle", 225.0,
+                AngleUtilities.findAngle(-0.4000000000000001, -0.4000000000000001), 0.1);
+        assertEquals("(-0.4000000000000001,-0.20000000000000007) should be angle", 243.43494882292202,
+                AngleUtilities.findAngle(-0.4000000000000001, -0.20000000000000007), 0.1);
+        assertEquals("(-0.4000000000000001,-5.551115123125783E-17) should be angle", 270.0,
+                AngleUtilities.findAngle(-0.4000000000000001, -5.551115123125783E-17), 0.1);
+        assertEquals("(-0.4000000000000001,0.19999999999999996) should be angle", 296.565051177078,
+                AngleUtilities.findAngle(-0.4000000000000001, 0.19999999999999996), 0.1);
+        assertEquals("(-0.4000000000000001,0.39999999999999997) should be angle", 315.0,
+                AngleUtilities.findAngle(-0.4000000000000001, 0.39999999999999997), 0.1);
+        assertEquals("(-0.4000000000000001,0.6) should be angle", 326.30993247402023,
+                AngleUtilities.findAngle(-0.4000000000000001, 0.6), 0.1);
+        assertEquals("(-0.4000000000000001,0.8) should be angle", 333.434948822922,
+                AngleUtilities.findAngle(-0.4000000000000001, 0.8), 0.1);
+        assertEquals("(-0.4000000000000001,1.0) should be angle", 338.1985905136482,
+                AngleUtilities.findAngle(-0.4000000000000001, 1.0), 0.1);
+        assertEquals("(-0.20000000000000007,-1.0) should be angle", 191.30993247402023,
+                AngleUtilities.findAngle(-0.20000000000000007, -1.0), 0.1);
+        assertEquals("(-0.20000000000000007,-0.8) should be angle", 194.03624346792648,
+                AngleUtilities.findAngle(-0.20000000000000007, -0.8), 0.1);
+        assertEquals("(-0.20000000000000007,-0.6000000000000001) should be angle", 198.43494882292202,
+                AngleUtilities.findAngle(-0.20000000000000007, -0.6000000000000001), 0.1);
+        assertEquals("(-0.20000000000000007,-0.4000000000000001) should be angle", 206.565051177078,
+                AngleUtilities.findAngle(-0.20000000000000007, -0.4000000000000001), 0.1);
+        assertEquals("(-0.20000000000000007,-0.20000000000000007) should be angle", 225.0,
+                AngleUtilities.findAngle(-0.20000000000000007, -0.20000000000000007), 0.1);
+        assertEquals("(-0.20000000000000007,-5.551115123125783E-17) should be angle", 270.0,
+                AngleUtilities.findAngle(-0.20000000000000007, -5.551115123125783E-17), 0.1);
+        assertEquals("(-0.20000000000000007,0.19999999999999996) should be angle", 315.0,
+                AngleUtilities.findAngle(-0.20000000000000007, 0.19999999999999996), 0.1);
+        assertEquals("(-0.20000000000000007,0.39999999999999997) should be angle", 333.434948822922,
+                AngleUtilities.findAngle(-0.20000000000000007, 0.39999999999999997), 0.1);
+        assertEquals("(-0.20000000000000007,0.6) should be angle", 341.565051177078,
+                AngleUtilities.findAngle(-0.20000000000000007, 0.6), 0.1);
+        assertEquals("(-0.20000000000000007,0.8) should be angle", 345.9637565320735,
+                AngleUtilities.findAngle(-0.20000000000000007, 0.8), 0.1);
+        assertEquals("(-0.20000000000000007,1.0) should be angle", 348.69006752597977,
+                AngleUtilities.findAngle(-0.20000000000000007, 1.0), 0.1);
+        assertEquals("(-5.551115123125783E-17,-1.0) should be angle", 180.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, -1.0), 0.1);
+        assertEquals("(-5.551115123125783E-17,-0.8) should be angle", 180.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, -0.8), 0.1);
+        assertEquals("(-5.551115123125783E-17,-0.6000000000000001) should be angle", 180.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, -0.6000000000000001), 0.1);
+        assertEquals("(-5.551115123125783E-17,-0.4000000000000001) should be angle", 180.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, -0.4000000000000001), 0.1);
+        assertEquals("(-5.551115123125783E-17,-0.20000000000000007) should be angle", 180.00000000000003,
+                AngleUtilities.findAngle(-5.551115123125783E-17, -0.20000000000000007), 0.1);
+        assertEquals("(-5.551115123125783E-17,-5.551115123125783E-17) should be angle", 225.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, -5.551115123125783E-17), 0.1);
+        assertEquals("(-5.551115123125783E-17,0.19999999999999996) should be angle", 0.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, 0.19999999999999996), 0.1);
+        assertEquals("(-5.551115123125783E-17,0.39999999999999997) should be angle", 0.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, 0.39999999999999997), 0.1);
+        assertEquals("(-5.551115123125783E-17,0.6) should be angle", 0.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, 0.6), 0.1);
+        assertEquals("(-5.551115123125783E-17,0.8) should be angle", 0.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, 0.8), 0.1);
+        assertEquals("(-5.551115123125783E-17,1.0) should be angle", 0.0,
+                AngleUtilities.findAngle(-5.551115123125783E-17, 1.0), 0.1);
+        assertEquals("(0.19999999999999996,-1.0) should be angle", 168.6900675259798,
+                AngleUtilities.findAngle(0.19999999999999996, -1.0), 0.1);
+        assertEquals("(0.19999999999999996,-0.8) should be angle", 165.96375653207352,
+                AngleUtilities.findAngle(0.19999999999999996, -0.8), 0.1);
+        assertEquals("(0.19999999999999996,-0.6000000000000001) should be angle", 161.565051177078,
+                AngleUtilities.findAngle(0.19999999999999996, -0.6000000000000001), 0.1);
+        assertEquals("(0.19999999999999996,-0.4000000000000001) should be angle", 153.43494882292202,
+                AngleUtilities.findAngle(0.19999999999999996, -0.4000000000000001), 0.1);
+        assertEquals("(0.19999999999999996,-0.20000000000000007) should be angle", 135.0,
+                AngleUtilities.findAngle(0.19999999999999996, -0.20000000000000007), 0.1);
+        assertEquals("(0.19999999999999996,-5.551115123125783E-17) should be angle", 90.00000000000001,
+                AngleUtilities.findAngle(0.19999999999999996, -5.551115123125783E-17), 0.1);
+        assertEquals("(0.19999999999999996,0.19999999999999996) should be angle", 45.0,
+                AngleUtilities.findAngle(0.19999999999999996, 0.19999999999999996), 0.1);
+        assertEquals("(0.19999999999999996,0.39999999999999997) should be angle", 26.565051177077976,
+                AngleUtilities.findAngle(0.19999999999999996, 0.39999999999999997), 0.1);
+        assertEquals("(0.19999999999999996,0.6) should be angle", 18.434948822922024,
+                AngleUtilities.findAngle(0.19999999999999996, 0.6), 0.1);
+        assertEquals("(0.19999999999999996,0.8) should be angle", 14.036243467926454,
+                AngleUtilities.findAngle(0.19999999999999996, 0.8), 0.1);
+        assertEquals("(0.19999999999999996,1.0) should be angle", 11.30993247402023,
+                AngleUtilities.findAngle(0.19999999999999996, 1.0), 0.1);
+        assertEquals("(0.39999999999999997,-1.0) should be angle", 158.19859051364818,
+                AngleUtilities.findAngle(0.39999999999999997, -1.0), 0.1);
+        assertEquals("(0.39999999999999997,-0.8) should be angle", 153.43494882292202,
+                AngleUtilities.findAngle(0.39999999999999997, -0.8), 0.1);
+        assertEquals("(0.39999999999999997,-0.6000000000000001) should be angle", 146.30993247402023,
+                AngleUtilities.findAngle(0.39999999999999997, -0.6000000000000001), 0.1);
+        assertEquals("(0.39999999999999997,-0.4000000000000001) should be angle", 135.0,
+                AngleUtilities.findAngle(0.39999999999999997, -0.4000000000000001), 0.1);
+        assertEquals("(0.39999999999999997,-0.20000000000000007) should be angle", 116.56505117707799,
+                AngleUtilities.findAngle(0.39999999999999997, -0.20000000000000007), 0.1);
+        assertEquals("(0.39999999999999997,-5.551115123125783E-17) should be angle", 90.0,
+                AngleUtilities.findAngle(0.39999999999999997, -5.551115123125783E-17), 0.1);
+        assertEquals("(0.39999999999999997,0.19999999999999996) should be angle", 63.434948822922024,
+                AngleUtilities.findAngle(0.39999999999999997, 0.19999999999999996), 0.1);
+        assertEquals("(0.39999999999999997,0.39999999999999997) should be angle", 45.0,
+                AngleUtilities.findAngle(0.39999999999999997, 0.39999999999999997), 0.1);
+        assertEquals("(0.39999999999999997,0.6) should be angle", 33.69006752597977,
+                AngleUtilities.findAngle(0.39999999999999997, 0.6), 0.1);
+        assertEquals("(0.39999999999999997,0.8) should be angle", 26.565051177077976,
+                AngleUtilities.findAngle(0.39999999999999997, 0.8), 0.1);
+        assertEquals("(0.39999999999999997,1.0) should be angle", 21.801409486351815,
+                AngleUtilities.findAngle(0.39999999999999997, 1.0), 0.1);
+        assertEquals("(0.6,-1.0) should be angle", 149.03624346792648, AngleUtilities.findAngle(0.6, -1.0), 0.1);
+        assertEquals("(0.6,-0.8) should be angle", 143.13010235415598, AngleUtilities.findAngle(0.6, -0.8), 0.1);
+        assertEquals("(0.6,-0.6000000000000001) should be angle", 135.0,
+                AngleUtilities.findAngle(0.6, -0.6000000000000001), 0.1);
+        assertEquals("(0.6,-0.4000000000000001) should be angle", 123.6900675259798,
+                AngleUtilities.findAngle(0.6, -0.4000000000000001), 0.1);
+        assertEquals("(0.6,-0.20000000000000007) should be angle", 108.43494882292201,
+                AngleUtilities.findAngle(0.6, -0.20000000000000007), 0.1);
+        assertEquals("(0.6,-5.551115123125783E-17) should be angle", 90.0,
+                AngleUtilities.findAngle(0.6, -5.551115123125783E-17), 0.1);
+        assertEquals("(0.6,0.19999999999999996) should be angle", 71.56505117707798,
+                AngleUtilities.findAngle(0.6, 0.19999999999999996), 0.1);
+        assertEquals("(0.6,0.39999999999999997) should be angle", 56.30993247402023,
+                AngleUtilities.findAngle(0.6, 0.39999999999999997), 0.1);
+        assertEquals("(0.6,0.6) should be angle", 45.0, AngleUtilities.findAngle(0.6, 0.6), 0.1);
+        assertEquals("(0.6,0.8) should be angle", 36.86989764584399, AngleUtilities.findAngle(0.6, 0.8), 0.1);
+        assertEquals("(0.6,1.0) should be angle", 30.963756532073546, AngleUtilities.findAngle(0.6, 1.0), 0.1);
+        assertEquals("(0.8,-1.0) should be angle", 141.34019174590992, AngleUtilities.findAngle(0.8, -1.0), 0.1);
+        assertEquals("(0.8,-0.8) should be angle", 135.0, AngleUtilities.findAngle(0.8, -0.8), 0.1);
+        assertEquals("(0.8,-0.6000000000000001) should be angle", 126.86989764584402,
+                AngleUtilities.findAngle(0.8, -0.6000000000000001), 0.1);
+        assertEquals("(0.8,-0.4000000000000001) should be angle", 116.56505117707799,
+                AngleUtilities.findAngle(0.8, -0.4000000000000001), 0.1);
+        assertEquals("(0.8,-0.20000000000000007) should be angle", 104.03624346792648,
+                AngleUtilities.findAngle(0.8, -0.20000000000000007), 0.1);
+        assertEquals("(0.8,-5.551115123125783E-17) should be angle", 90.0,
+                AngleUtilities.findAngle(0.8, -5.551115123125783E-17), 0.1);
+        assertEquals("(0.8,0.19999999999999996) should be angle", 75.96375653207355,
+                AngleUtilities.findAngle(0.8, 0.19999999999999996), 0.1);
+        assertEquals("(0.8,0.39999999999999997) should be angle", 63.434948822922024,
+                AngleUtilities.findAngle(0.8, 0.39999999999999997), 0.1);
+        assertEquals("(0.8,0.6) should be angle", 53.13010235415601, AngleUtilities.findAngle(0.8, 0.6), 0.1);
+        assertEquals("(0.8,0.8) should be angle", 45.0, AngleUtilities.findAngle(0.8, 0.8), 0.1);
+        assertEquals("(0.8,1.0) should be angle", 38.65980825409008, AngleUtilities.findAngle(0.8, 1.0), 0.1);
+        assertEquals("(1.0,-1.0) should be angle", 135.0, AngleUtilities.findAngle(1.0, -1.0), 0.1);
+        assertEquals("(1.0,-0.8) should be angle", 128.65980825409008, AngleUtilities.findAngle(1.0, -0.8), 0.1);
+        assertEquals("(1.0,-0.6000000000000001) should be angle", 120.96375653207352,
+                AngleUtilities.findAngle(1.0, -0.6000000000000001), 0.1);
+        assertEquals("(1.0,-0.4000000000000001) should be angle", 111.80140948635182,
+                AngleUtilities.findAngle(1.0, -0.4000000000000001), 0.1);
+        assertEquals("(1.0,-0.20000000000000007) should be angle", 101.30993247402021,
+                AngleUtilities.findAngle(1.0, -0.20000000000000007), 0.1);
+        assertEquals("(1.0,-5.551115123125783E-17) should be angle", 90.0,
+                AngleUtilities.findAngle(1.0, -5.551115123125783E-17), 0.1);
+        assertEquals("(1.0,0.19999999999999996) should be angle", 78.69006752597977,
+                AngleUtilities.findAngle(1.0, 0.19999999999999996), 0.1);
+        assertEquals("(1.0,0.39999999999999997) should be angle", 68.19859051364818,
+                AngleUtilities.findAngle(1.0, 0.39999999999999997), 0.1);
+        assertEquals("(1.0,0.6) should be angle", 59.03624346792651, AngleUtilities.findAngle(1.0, 0.6), 0.1);
+        assertEquals("(1.0,0.8) should be angle", 51.34019174590992, AngleUtilities.findAngle(1.0, 0.8), 0.1);
+        assertEquals("(1.0,1.0) should be angle", 45.0, AngleUtilities.findAngle(1.0, 1.0), 0.1);
     }
 
     @Test
