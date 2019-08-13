@@ -7,33 +7,26 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.util.PidConfig;
 
 public class SwerveWheel {
-	private static double[] PIVOT_LOC;
 
 	private SpeedController m_driveMotor;
 	private PIDSource m_encoder;
 	private PIDController m_pidController;
 
-	private double[] m_wheelLoc;
+	private double[] m_rotationVector;
 	private double m_radius;
 
 	/**
-	 * IMPORTANT: The {@link #setPivotLoc(int[]) pivot location} must be defined before any SwerveWheels are constructed.
 	 * @param driveMotor	Motor that drives the wheel.
 	 * @param turnMotor		Motor that rotates the wheel.  Must be a PIDOutput.
 	 * @param encoder		Encoder that tracks the position of the turn motor, in degrees.  Must be a PIDSource.  An absolute encoder is highly recommended.
 	 * @param pidConfig		A {@link frc.robot.util.PidConfig PidConfig} holding the values for setting up a PIDController.  
-	 * @param wheelLoc		The location of the wheel relative to the origin (the center of the robot).  
+	 * @param radiusVector	
 	 */
 	public SwerveWheel(SpeedController driveMotor, PIDOutput turnMotor, PIDSource encoder, PidConfig pidConfig,
-			double[] wheelLoc) {
-
-		if (PIVOT_LOC == null) {
-			throw new NullPointerException("SwerveWheel.PIVOT_LOC must be initalized by calling SwerveWheel.initializePivotLoc(double[] pivotLoc).");
-		}
+			double[] pivotLoc, double[] wheelLoc) {
 
 		this.m_driveMotor = driveMotor;
 		this.m_encoder = encoder;
-		this.m_wheelLoc = wheelLoc;
 
 		this.m_pidController = new PIDController(pidConfig.kP, pidConfig.kI, pidConfig.kD, this.m_encoder,
 				(output) -> turnMotor.pidWrite(output));
@@ -44,8 +37,8 @@ public class SwerveWheel {
 		this.m_pidController.reset();
 		this.m_pidController.enable();
 
-		this.m_radius = Math
-				.sqrt(Math.pow((wheelLoc[0] - PIVOT_LOC[0]), 2) + Math.pow((wheelLoc[1] - PIVOT_LOC[1]), 2));
+		this.m_rotationVector = new double[] { wheelLoc[1] - pivotLoc[1], pivotLoc[0] - wheelLoc[0] };
+		this.m_radius = Math.sqrt(Math.pow(wheelLoc[0] - pivotLoc[0], 2) + Math.pow(wheelLoc[1] - pivotLoc[1], 2));
 	}
 
 	/**
@@ -99,16 +92,9 @@ public class SwerveWheel {
 	 * It's also known as the direction that the wheel will face when the robot is turning in place.
 	 */
 	public double[] getRotationVector() {
-		return new double[] { m_wheelLoc[1] - PIVOT_LOC[1], PIVOT_LOC[0] - m_wheelLoc[0] };
+		return this.m_rotationVector;
 	}
-	
-	/**
-	 * Important: Call once before any SwerveWheels are constructed. 
-	 * @param pivotLoc The point about which the robot rotates, reletave to the origin, the center of the robot.
-	 */
-	public static void initializePivotLoc(double[] pivotLoc) {
-		PIVOT_LOC = pivotLoc;
-	}
+
 
 	public double getDriveSpeed() {
 		return this.m_driveMotor.get();
