@@ -29,7 +29,7 @@ public class SwerveWheel {
 		this.m_encoder = encoder;
 
 		this.m_pidController = new PIDController(pidConfig.kP, pidConfig.kI, pidConfig.kD, this.m_encoder,
-				(output) -> turnMotor.pidWrite(output));
+				turnMotor);
 		this.m_pidController.setAbsoluteTolerance(pidConfig.tolerance);
 		this.m_pidController.setOutputRange(-01, 01);
 		this.m_pidController.setInputRange(0, 360);
